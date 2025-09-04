@@ -1,0 +1,1140 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bobina de Tesla - Projeto de Ciências</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #ffffff;
+            color: #2d3748;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Animação de fundo - partículas flutuantes */
+        .particles-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.05;
+        }
+
+        .particle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            border-radius: 50%;
+            animation: float 8s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0; }
+            50% { transform: translateY(-120px) rotate(180deg); opacity: 1; }
+        }
+
+        /* Header jovial */
+        header {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .main-title {
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 2;
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            font-weight: 400;
+            opacity: 0.9;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Container principal */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Seções com estilo jovial */
+        .section {
+            padding: 4rem 0;
+            margin: 2rem 0;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 3rem;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Cards joviais */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 2rem;
+            padding: 2.5rem;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.1);
+            border: 2px solid #f7fafc;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .card:hover::before {
+            left: 100%;
+        }
+
+        .card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(102, 126, 234, 0.2);
+            border-color: #667eea;
+        }
+
+        .card-title {
+            color: #667eea;
+            margin-bottom: 1.5rem;
+            font-size: 1.6rem;
+            font-weight: 600;
+        }
+
+        .card-content {
+            color: #4a5568;
+            line-height: 1.8;
+            font-weight: 400;
+        }
+
+        /* Vídeo responsivo jovial */
+        .video-section {
+            background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+            border-radius: 2rem;
+            padding: 3rem;
+            margin: 3rem 0;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.1);
+            border: 2px solid #e2e8f0;
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin: 2rem auto;
+            border-radius: 1.5rem;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.2);
+        }
+
+        .video-container iframe {
+            width: 100%;
+            height: 450px;
+            border: none;
+        }
+
+        /* Simulador jovial e interativo */
+        .simulator {
+            background: linear-gradient(135deg, #ffffff 0%, #f7fafc 100%);
+            border-radius: 2rem;
+            padding: 3rem;
+            margin: 3rem 0;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.1);
+            border: 2px solid #e2e8f0;
+            position: relative;
+        }
+
+        .simulator-area {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            min-height: 350px;
+            padding: 2rem;
+            background: linear-gradient(135deg, #f8fafc, #edf2f7);
+            border-radius: 1.5rem;
+            margin: 2rem 0;
+            position: relative;
+            overflow: hidden;
+            border: 2px dashed #cbd5e0;
+        }
+
+        .bobina-container {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .bobina-container:hover {
+            transform: scale(1.05);
+        }
+
+        .lampada-container {
+            position: relative;
+            cursor: grab;
+            transition: all 0.3s ease;
+            user-select: none;
+        }
+
+        .lampada-container:active {
+            cursor: grabbing;
+        }
+
+        .lampada-container:hover {
+            transform: scale(1.1);
+        }
+
+        .drag-instruction {
+            position: absolute;
+            top: 1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #ffd89b 0%, #19547b 100%);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 2rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            box-shadow: 0 8px 16px rgba(255, 216, 155, 0.3);
+            z-index: 10;
+        }
+
+        /* Efeito de raios quando ativo */
+        .electric-effect {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 250px;
+            height: 250px;
+            background: radial-gradient(circle, rgba(255, 216, 155, 0.4), transparent);
+            border-radius: 50%;
+            opacity: 0;
+            animation: pulse 1.5s infinite;
+            z-index: 1;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+            50% { opacity: 1; transform: translate(-50%, -50%) scale(1.3); }
+        }
+
+        /* Timeline jovial */
+        .timeline {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(to bottom, #667eea, #764ba2);
+            border-radius: 2px;
+        }
+
+        .timeline-item {
+            display: flex;
+            margin: 3rem 0;
+            align-items: center;
+            position: relative;
+        }
+
+        .timeline-item:nth-child(odd) {
+            flex-direction: row-reverse;
+        }
+
+        .timeline-date {
+            background: linear-gradient(135deg, #ffd89b 0%, #19547b 100%);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 2rem;
+            font-weight: 700;
+            min-width: 120px;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(255, 216, 155, 0.4);
+            position: relative;
+            z-index: 2;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-date:hover {
+            transform: scale(1.1);
+            box-shadow: 0 12px 25px rgba(255, 216, 155, 0.5);
+        }
+
+        .timeline-content {
+            background: #ffffff;
+            padding: 2rem;
+            border-radius: 1.5rem;
+            flex: 1;
+            margin: 0 2rem;
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.1);
+            border: 2px solid #f7fafc;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-content:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.15);
+            border-color: #667eea;
+        }
+
+        .timeline-content h4 {
+            color: #667eea;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+
+        /* Quiz jovial */
+        .quiz-container {
+            background: linear-gradient(135deg, #ffffff 0%, #f7fafc 100%);
+            border-radius: 2rem;
+            padding: 3rem;
+            margin: 3rem 0;
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.1);
+            border: 2px solid #e2e8f0;
+        }
+
+        .quiz {
+            margin: 2rem 0;
+            padding: 2rem;
+            background: #ffffff;
+            border-radius: 1.5rem;
+            border: 2px solid #f7fafc;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.05);
+        }
+
+        .quiz:hover {
+            border-color: #667eea;
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.1);
+        }
+
+        .question {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            color: #2d3748;
+            font-weight: 600;
+        }
+
+        .options {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .option {
+            background: #ffffff;
+            border: 2px solid #e2e8f0;
+            padding: 1rem 1.5rem;
+            border-radius: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .option::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.1), transparent);
+            transition: left 0.3s;
+        }
+
+        .option:hover::before {
+            left: 100%;
+        }
+
+        .option:hover {
+            border-color: #667eea;
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.1);
+        }
+
+        .option.correct {
+            border-color: #48bb78;
+            background: linear-gradient(135deg, #c6f6d5, #9ae6b4);
+            color: #22543d;
+        }
+
+        .option.incorrect {
+            border-color: #f56565;
+            background: linear-gradient(135deg, #fed7d7, #feb2b2);
+            color: #742a2a;
+        }
+
+        .feedback {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 1rem;
+            display: none;
+            font-weight: 600;
+        }
+
+        .feedback.show {
+            display: block;
+            animation: slideIn 0.3s ease;
+        }
+
+        .feedback.correct {
+            background: linear-gradient(135deg, #c6f6d5, #9ae6b4);
+            color: #22543d;
+            border: 2px solid #48bb78;
+        }
+
+        .feedback.incorrect {
+            background: linear-gradient(135deg, #fed7d7, #feb2b2);
+            color: #742a2a;
+            border: 2px solid #f56565;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Botões joviais com gradientes */
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 2rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+            position: relative;
+            overflow: hidden;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn:active {
+            transform: translateY(-1px);
+        }
+
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(102, 126, 234, 0.1);
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .logo-img {
+            width: 40px;
+            height: 40px;
+            filter: drop-shadow(0 2px 4px rgba(102, 126, 234, 0.3));
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: #4a5568;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 1rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: #667eea;
+            background: rgba(102, 126, 234, 0.1);
+            transform: translateY(-2px);
+        }
+
+        /* Ajuste do header principal para compensar a navbar fixa */
+        header {
+            margin-top: 80px;
+        }
+
+        /* Seção de créditos */
+        .credits-section {
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        .credits-card {
+            background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+            border-radius: 2rem;
+            padding: 3rem;
+            margin: 2rem auto;
+            max-width: 800px;
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.1);
+            border: 2px solid #e2e8f0;
+        }
+
+        .credits-card .institution h3 {
+            color: #667eea;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            line-height: 1.4;
+        }
+
+        .credits-card .project-info h4 {
+            color: #2d3748;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .credits-card .students-list p {
+            color: #4a5568;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .credits-card .supervision p {
+            color: #2d3748;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .credits-card .supervision strong {
+            color: #667eea;
+            font-weight: 700;
+        }
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+            
+            .nav-container {
+                padding: 0 1rem;
+            }
+            
+            .logo-text {
+                font-size: 1.2rem;
+            }
+            
+            header {
+                margin-top: 70px;
+            }
+            
+            .main-title {
+                font-size: 2.5rem;
+            }
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .timeline::before {
+                left: 2rem;
+            }
+            
+            .timeline-item {
+                flex-direction: column !important;
+                text-align: center;
+            }
+            
+            .timeline-content {
+                margin: 1rem 0;
+            }
+            
+            .simulator-area {
+                flex-direction: column;
+                gap: 2rem;
+            }
+            
+            .video-container iframe {
+                height: 250px;
+            }
+        }
+
+        /* Estilos específicos para SVGs */
+        .svg-container {
+            width: 200px;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .svg-container img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            filter: drop-shadow(0 10px 20px rgba(102, 126, 234, 0.2));
+            transition: all 0.3s ease;
+        }
+
+        .lampada-svg {
+            width: 120px;
+            height: 120px;
+        }
+
+        .bobina-svg {
+            width: 180px;
+            height: 180px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Animação de fundo -->
+    <div class="particles-bg" id="particlesBg"></div>
+
+    <!-- Navigation Header -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="logo.svg" alt="Logo" class="logo-img">
+                <span class="logo-text">Bobina Tesla</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#fundamentos" class="nav-link">Fundamentos</a></li>
+                <li><a href="#tutorial" class="nav-link">Tutorial</a></li>
+                <li><a href="#simulador" class="nav-link">Simulador</a></li>
+                <li><a href="#experimento" class="nav-link">Experimento</a></li>
+                <li><a href="#timeline" class="nav-link">Timeline</a></li>
+                <li><a href="#quiz" class="nav-link">Quiz</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header>
+        <h1 class="main-title">BOBINA DE TESLA</h1>
+        <p class="subtitle">Projeto de Ciências - Experimento Eletromagnético</p>
+    </header>
+
+    <div class="container">
+        <!-- Seção: Origem e Objetivo -->
+        <section class="section" id="fundamentos">
+            <h2 class="section-title">Fundamentos do Projeto</h2>
+            <div class="cards-grid">
+                <div class="card">
+                    <h3 class="card-title">Origem</h3>
+                    <div class="card-content">
+                        <p>A bobina de tesla é um transformador ressonante, criada por Nikolas Tesla em 1890, com o objetivo de conduzir correntes elétricas por grandes distâncias sem perdas significantes ocasionadas pelo efeito Joule.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3 class="card-title">Objetivo do Projeto</h3>
+                    <div class="card-content">
+                        <p>A partir da montagem da bobina de Tesla caseira, é possível acender uma lâmpada fluorescente, através do campo elétrico gerado nos fios de cobre sem que ela esteja conectada a qualquer tipo de energia, dessa forma, poderemos observar na prática alguns conceitos de campo elétrico, campo magnético, indução, capacitância e potencial elétrico.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Vídeo Tutorial -->
+        <section class="section" id="tutorial">
+            <div class="video-section">
+                <h2 class="section-title" style="color: #2d3748;">Tutorial: Como Fazer uma Bobina de Tesla</h2>
+                <p style="color: #4a5568; margin-bottom: 2rem; font-weight: 500;">Assista ao tutorial completo do Manual do Mundo sobre como construir sua própria bobina de Tesla caseira.</p>
+                <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/w2bZGKNwB4Y?si=gC5KjXErzsIaudoy" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                </div>
+            </div>
+        </section>
+
+        <!-- Simulador Interativo -->
+        <section class="section" id="simulador">
+            <div class="simulator">
+                <h2 class="section-title" style="color: #2d3748;">Simulador Interativo</h2>
+                <p style="color: #4a5568; margin-bottom: 2rem; font-weight: 500;">Mova o mouse sobre a área para controlar a lâmpada. Ela acende quando próxima da bobina!</p>
+                
+                <div class="simulator-area" id="simulatorArea">
+                    <div class="drag-instruction" id="dragInstruction">Mova o mouse sobre a área!</div>
+                    
+                    <div class="bobina-container">
+                        <div class="svg-container">
+                            <img src="bobina.svg" alt="Bobina de Tesla" class="bobina-svg" id="bobinaSvg">
+                        </div>
+                    </div>
+                    
+                    <div class="lampada-container" id="lampada">
+                        <div class="svg-container">
+                            <img src="lampada-off.svg" alt="Lâmpada" class="lampada-svg" id="lampadaSvg">
+                        </div>
+                    </div>
+                    
+                    <div class="electric-effect" id="electricEffect"></div>
+                </div>
+                
+                <button class="btn" onclick="resetSimulator()">Reiniciar Simulação</button>
+            </div>
+        </section>
+
+        <!-- Materiais e Funcionamento -->
+        <section class="section" id="experimento">
+            <h2 class="section-title">Experimento</h2>
+            <div class="cards-grid">
+                <div class="card">
+                    <h3 class="card-title">Materiais Utilizados</h3>
+                    <div class="card-content">
+                        <ul style="list-style: none; padding: 0;">
+                            <li>• Fio de cobre esmaltado de 1,2mm de espessura</li>
+                            <li>• Interruptor</li>
+                            <li>• Transistor 2N 2222A</li>
+                            <li>• Resistor de 22K</li>
+                            <li>• 1 conector de bateria e a bateria de 9W</li>
+                            <li>• 2 Lâmpadas Fluorescentes</li>
+                            <li>• Cano PVC de 12 cm de comprimento e 32 mm de diâmetro</li>
+                            <li>• Fio de cobre esmaltado nº30</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3 class="card-title">Como Funciona?</h3>
+                    <div class="card-content">
+                        <p>O transistor atua como interruptor, ligando e desligando o circuito para formar pulsos eletromagnéticos, fazendo o enrolamento primário funcionar como eletroímã e gerar energia para o enrolamento secundário. Essa energia possui alta voltagem, mas baixa corrente. No caso da lâmpada fluorescente, os elétrons internos colidem com a parede de fósforo, e os pulsos eletromagnéticos fazem os elétrons se moverem repetidamente, colidindo várias vezes com o fósforo e produzindo a luz emitida pela lâmpada.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Timeline de Tesla -->
+        <section class="section" id="timeline">
+            <h2 class="section-title">Linha do Tempo - Nikola Tesla</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">1856</div>
+                    <div class="timeline-content">
+                        <h4>Nascimento</h4>
+                        <p>Nikola Tesla nasce na Sérvia, então parte do Império Austro-Húngaro.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">1884</div>
+                    <div class="timeline-content">
+                        <h4>Chegada aos EUA</h4>
+                        <p>Tesla emigra para os Estados Unidos e trabalha brevemente com Thomas Edison.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">1888</div>
+                    <div class="timeline-content">
+                        <h4>Motor de Indução</h4>
+                        <p>Desenvolve o motor de corrente alternada, revolucionando a indústria elétrica.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">1891</div>
+                    <div class="timeline-content">
+                        <h4>Bobina de Tesla</h4>
+                        <p>Inventa a famosa bobina de Tesla, capaz de gerar alta voltagem e frequência.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">1943</div>
+                    <div class="timeline-content">
+                        <h4>Falecimento</h4>
+                        <p>Tesla morre em Nova York, deixando um legado de mais de 300 patentes.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quiz Interativo -->
+        <section class="section" id="quiz">
+            <div class="quiz-container">
+                <h2 class="section-title" style="color: #2d3748;">Quiz Rápido</h2>
+                
+                <div class="quiz" id="quiz1">
+                    <div class="question">1. Qual a função da bobina de Tesla?</div>
+                    <div class="options">
+                        <div class="option" onclick="checkAnswer(this, false, 'quiz1')">Gerar energia elétrica para uso doméstico</div>
+                        <div class="option" onclick="checkAnswer(this, true, 'quiz1')">Conduzir correntes elétricas por grandes distâncias sem perdas significativas</div>
+                        <div class="option" onclick="checkAnswer(this, false, 'quiz1')">Armazenar energia em baterias</div>
+                        <div class="option" onclick="checkAnswer(this, false, 'quiz1')">Converter energia solar em elétrica</div>
+                    </div>
+                    <div class="feedback" id="feedback1"></div>
+                </div>
+
+                <div class="quiz" id="quiz2">
+                    <div class="question">2. Quem criou a bobina de Tesla?</div>
+                    <div class="options">
+                        <div class="option" onclick="checkAnswer(this, false, 'quiz2')">Thomas Edison</div>
+                        <div class="option" onclick="checkAnswer(this, true, 'quiz2')">Nikola Tesla</div>
+                        <div class="option" onclick="checkAnswer(this, false, 'quiz2')">Benjamin Franklin</div>
+                        <div class="option" onclick="checkAnswer(this, false, 'quiz2')">Alessandro Volta</div>
+                    </div>
+                    <div class="feedback" id="feedback2"></div>
+                </div>
+
+                <div class="quiz" id="quiz3">
+                    <div class="question">3. Em que ano a bobina de Tesla foi inventada?</div>
+                    <div class="options">
+                        <div class="option" onclick="checkAnswer(this, false, 'quiz3')">1885</div>
+                        <div class="option" onclick="checkAnswer(this, true, 'quiz3')">1891</div>
+                        <div class="option" onclick="checkAnswer(this, false, 'quiz3')">1895</div>
+                        <div class="option" onclick="checkAnswer(this, false, 'quiz3')">1900</div>
+                    </div>
+                    <div class="feedback" id="feedback3"></div>
+                </div>
+
+                <div class="quiz" id="quiz4">
+                    <div class="question">4. Qual componente atua como interruptor no circuito da bobina?</div>
+                    <div class="options">
+                        <div class="option" onclick="checkAnswer(this, false, 'quiz4')">Resistor</div>
+                        <div class="option" onclick="checkAnswer(this, true, 'quiz4')">Transistor</div>
+                        <div class="option" onclick="checkAnswer(this, false, 'quiz4')">Capacitor</div>
+                        <div class="option" onclick="checkAnswer(this, false, 'quiz4')">Indutor</div>
+                    </div>
+                    <div class="feedback" id="feedback4"></div>
+                </div>
+
+                <div class="quiz" id="quiz5">
+                    <div class="question">5. Por que a lâmpada fluorescente acende sem estar conectada por fio?</div>
+                    <div class="options">
+                        <div class="option" onclick="checkAnswer(this, false, 'quiz5')">Por causa da energia solar</div>
+                        <div class="option" onclick="checkAnswer(this, true, 'quiz5')">Devido aos pulsos eletromagnéticos gerados pela bobina</div>
+                        <div class="option" onclick="checkAnswer(this, false, 'quiz5')">Por causa do calor gerado</div>
+                        <div class="option" onclick="checkAnswer(this, false, 'quiz5')">Devido à energia da bateria</div>
+                    </div>
+                    <div class="feedback" id="feedback5"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Resultados e Conclusão -->
+        <section class="section">
+            <div class="card" style="max-width: 800px; margin: 0 auto;">
+                <h3 class="card-title">Resultados e Conclusão</h3>
+                <div class="card-content">
+                    <p>A bobina primária recebe alta frequência e a secundária entra em ressonância, permitindo acender uma lâmpada apenas com pulsos eletromagnéticos. Isso demonstra que o campo magnético é intenso em pulso, mesmo que fraco em módulo, gerando corrente elétrica através dos impulsos.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Créditos -->
+        <section class="section" id="creditos">
+            <div class="credits-section">
+                <h2 class="section-title" style="color: #2d3748;">Créditos</h2>
+                <div class="credits-card">
+                    <div class="institution">
+                        <h3>Instituto Federal de Educação, Ciência e Tecnologia Baiano – Campus Guanambi</h3>
+                    </div>
+                    <div class="project-info">
+                        <h4>Projeto desenvolvido pelos estudantes:</h4>
+                        <div class="students-list">
+                            <p>Cecília Elen, Ítalo Breno Ferreira Rocha, Leonardo Bernardo Pardinho, Lívia Trindade Vilasboas, Luís Henrique Viana Rocha, Pedro Henrique Cardoso Dias e Pedro Henrique Pereira Xavier – 3º BII.</p>
+                        </div>
+                    </div>
+                    <div class="supervision">
+                        <p>Desenvolvido para a disciplina de Física, sob orientação do professor <strong>Nelson Gentil</strong>.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Animação de partículas de fundo
+        function createParticle() {
+            const bg = document.getElementById('particlesBg');
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 8 + 's';
+            particle.style.animationDuration = (Math.random() * 4 + 4) + 's';
+            bg.appendChild(particle);
+
+            setTimeout(() => {
+                if (bg.contains(particle)) {
+                    bg.removeChild(particle);
+                }
+            }, 8000);
+        }
+
+        // Criar partículas periodicamente
+        setInterval(createParticle, 800);
+
+        // Simulador com seguimento do mouse
+        let isLampOn = false;
+        const lampada = document.getElementById('lampada');
+        const electricEffect = document.getElementById('electricEffect');
+        const dragInstruction = document.getElementById('dragInstruction');
+        const simulatorArea = document.getElementById('simulatorArea');
+
+        // Variáveis para controle do mouse
+        let mouseX = 0;
+        let mouseY = 0;
+        let isMouseInArea = false;
+
+        // Eventos do mouse no simulador
+        simulatorArea.addEventListener('mouseenter', (e) => {
+            isMouseInArea = true;
+            simulatorArea.style.cursor = 'none';
+            lampada.style.display = 'block';
+        });
+
+        simulatorArea.addEventListener('mouseleave', (e) => {
+            isMouseInArea = false;
+            simulatorArea.style.cursor = 'default';
+            deactivateLamp();
+            resetLampadaPosition();
+        });
+
+        simulatorArea.addEventListener('mousemove', (e) => {
+            if (!isMouseInArea) return;
+            
+            const rect = simulatorArea.getBoundingClientRect();
+            mouseX = e.clientX - rect.left;
+            mouseY = e.clientY - rect.top;
+            
+            // Mover a lâmpada para seguir o mouse
+            moveLampadaToMouse(mouseX, mouseY);
+            
+            // Verificar proximidade com a bobina
+            checkProximityToBobina(mouseX, mouseY);
+        });
+
+        function moveLampadaToMouse(x, y) {
+            // Ajustar posição da lâmpada para seguir o mouse
+            const lampadaWidth = lampada.offsetWidth;
+            const lampadaHeight = lampada.offsetHeight;
+            
+            lampada.style.position = 'absolute';
+            lampada.style.left = (x - lampadaWidth / 2) + 'px';
+            lampada.style.top = (y - lampadaHeight / 2) + 'px';
+            lampada.style.zIndex = '10';
+        }
+
+        function checkProximityToBobina(mouseX, mouseY) {
+            // Obter posição real da bobina
+            const bobinaContainer = document.querySelector('.bobina-container');
+            const bobinaRect = bobinaContainer.getBoundingClientRect();
+            const simulatorRect = simulatorArea.getBoundingClientRect();
+            
+            // Calcular posição relativa da bobina dentro do simulador
+            const bobinaX = bobinaRect.left + bobinaRect.width / 2 - simulatorRect.left;
+            const bobinaY = bobinaRect.top + bobinaRect.height / 2 - simulatorRect.top;
+            const proximityThreshold = 120; // Distância para ativar
+            
+            // Calcular distância
+            const distance = Math.sqrt(
+                Math.pow(mouseX - bobinaX, 2) + Math.pow(mouseY - bobinaY, 2)
+            );
+            
+            if (distance < proximityThreshold && !isLampOn) {
+                activateLamp();
+            } else if (distance >= proximityThreshold && isLampOn) {
+                deactivateLamp();
+            }
+        }
+
+        function activateLamp() {
+            if (!isLampOn) {
+                isLampOn = true;
+                // Trocar para lâmpada acesa
+                document.getElementById('lampadaSvg').src = 'lampada-acessa.svg';
+                electricEffect.style.opacity = '1';
+                dragInstruction.textContent = 'Lâmpada acesa! Efeito eletromagnético ativo!';
+                dragInstruction.style.background = 'linear-gradient(135deg, #48bb78 0%, #38a169 100%)';
+            }
+        }
+
+        function deactivateLamp() {
+            if (isLampOn) {
+                isLampOn = false;
+                // Trocar para lâmpada apagada
+                document.getElementById('lampadaSvg').src = 'lampada-off.svg';
+                electricEffect.style.opacity = '0';
+                dragInstruction.textContent = 'Mova o mouse sobre a área!';
+                dragInstruction.style.background = 'linear-gradient(135deg, #ffd89b 0%, #19547b 100%)';
+            }
+        }
+
+        function resetLampadaPosition() {
+            // Resetar posição da lâmpada para a posição original
+            lampada.style.position = 'relative';
+            lampada.style.left = 'auto';
+            lampada.style.top = 'auto';
+            lampada.style.zIndex = 'auto';
+        }
+
+        function resetSimulator() {
+            deactivateLamp();
+            resetLampadaPosition();
+            isMouseInArea = false;
+            simulatorArea.style.cursor = 'default';
+        }
+
+        // Quiz
+        function checkAnswer(element, isCorrect, quizId) {
+            const quiz = document.getElementById(quizId);
+            const options = quiz.querySelectorAll('.option');
+            const feedback = quiz.querySelector('.feedback');
+            
+            // Desabilitar todas as opções
+            options.forEach(option => {
+                option.style.pointerEvents = 'none';
+                if (option === element) {
+                    if (isCorrect) {
+                        option.classList.add('correct');
+                    } else {
+                        option.classList.add('incorrect');
+                    }
+                }
+            });
+
+            // Mostrar a resposta correta
+            options.forEach(option => {
+                if (option.onclick.toString().includes('true')) {
+                    option.classList.add('correct');
+                }
+            });
+
+            // Mostrar feedback
+            feedback.classList.add('show');
+            if (isCorrect) {
+                feedback.classList.add('correct');
+                feedback.innerHTML = '✅ Correto! Excelente conhecimento sobre a bobina de Tesla!';
+            } else {
+                feedback.classList.add('incorrect');
+                feedback.innerHTML = '❌ Incorreto. Estude mais sobre o funcionamento da bobina de Tesla!';
+            }
+        }
+
+        // Inicializar
+        document.addEventListener('DOMContentLoaded', () => {
+            // Criar algumas partículas iniciais
+            for (let i = 0; i < 15; i++) {
+                setTimeout(createParticle, i * 300);
+            }
+        });
+    </script>
+</body>
+</html>
+
